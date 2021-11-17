@@ -567,10 +567,288 @@ have a pop up when stating which player wins when it’s game over.
 
 Source Code -
 Main:
-```//x```
+```
+// Question 3 - ICS4U1 Unit 2 Assignment
+// Brandon Wong-Dearing
+// Teacher: Mr. Naccarto
 
-X Class:
-```//x```
+import javax.swing.*;
+import javax.awt.*;
+import javax.awt.event.*;
+import javax.util.Scanner;
+
+class Main
+{
+  static int totalPlayerOneScore;
+  static int totalPlayerTwoScore;
+  static int roundScore;
+  static int playerTurn = 0;
+
+  public static void main(String[] args)
+  {
+    Dice player = new Dice();
+    JFrame window = new JFrame("Dice Game");
+    window.setSize(640,480);
+    window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+    JLabel playerOne = new JLabel("P1");
+    JLabel playerTwo = new JLabel("P2");
+    JLabel playerOneScore = new JLabel("Score: "+totalPlayerOneScore);
+    JLabel playerTwoScore = new JLabel("Score: "+totalPlayerTwoScore);
+    JButton roll = new JButton("Roll");
+    JButton pass = new JButton("Pass");
+
+    JLabel diceImages[][] = new JLabel[2][3];
+    diceImages[0][0] = new JLabel(player.getImage(1));
+    diceImages[0][1] = new JLabel(player.getImage(2));
+    JPanel panel = new JPanel(new GridBagLayout());
+    GridBagConstraints constraints = new GridBagConstraints();
+
+    JOptionPane.showMessageDialog(null, "Player 1 Goes First");
+
+    roll.addActionListener(new addActionListener())
+    {
+      @Override
+      public void actionPerformed(ActionEvent arg0)
+      {
+        int number1=player.changingDice();
+        int number2=player.changingDice();
+        number1 += 1;
+        number2 += 1;
+        diceImages[0][0].setIcon(player.getImages(number1));
+        diceImages[0][1].setIcon(player.getImages(number2));
+        roundScore += number1 + number2;
+        if((number1 == 1) && (number2 == 1))
+        {
+          if(playerTurn%2 ==0)
+          {
+            roundScore = 0;
+            totalPlayerOneScore =0;
+            playerOneScore.setText("Score: " + totalPlayerOneScore);
+            JOptionPane.showMessageDialog(null, "You rolled a snake eyes, your total score is reset.");
+            else if(playerTurn%2 != 0)
+
+            {
+              roundScore = 0;
+              totalPlayerTwoScore = 0;
+              playerTwoScore.setText("Score: "+ totalPlayerTwoScore);
+              JOptionPane.showMessageDialog(null, "You rolled a snake eyes, your total score is reset.")
+            }
+          }
+          if((number1+number2)==7)
+          {
+            if(playerTurn%2==0)
+            {
+              roundScore+=7;
+              playerOneScore.setText("Score: "+(totalPlayerOneScore+roundScore));
+              JOptionPane.showMessageDialog(null, "You rolled a lucky seven, you gained an extra 7 points.");
+              else if(playerTurn%2 != 0)
+              {
+                roundScore+=7;
+                playerTwoScore.setText("Score: "+(totalPlayerTwoScore+roundScore));
+                JOptionPane.showMessageDialog(null,"You rolled a lucky seven, you gained an extra 7 points.");
+              }
+            }
+            if(roundScore>21)
+            {
+              if(playerTurn%2==0)
+              {
+                roundScore =0;
+                playerOneScore.setText("Score: " +totalPlayerOneScore);
+                JOptionPane.showMessageDialog(null, "You got over 21, you lost all points from this round.");
+                JOptionPane.showMessageDialog(null, "Player 2 - Go.")
+                playerTurn++;
+              }
+              else if(playerTurn%2!=0)
+              {
+                roundScore=0;
+                playerTwoScore.setText("Score: "+totalPlayerTwoScore);
+                JOptionPane.showMessageDialog(null,"You got over 21, you lost the points from this round.");
+                JOptionPane.showMessageDialog(null, "Player 1 - Go.")
+                playerTurn++;
+              }
+            }
+            if(roundScore == 21)
+            {
+              if(playerTurn(%2==0))
+              {
+                totalPlayerOneScore += roundScore;
+                playerOneScore.setText("Score: "+totalPlayerOneScore)
+                JOptionPane(null, "You got 21, points added.")
+                roundScore=0;
+                JOptionPane.showMessageDialog(null, "Player 2 - Go.")
+                playerTurn++;
+              }
+              else if(playerTurn%2!=0)
+              {
+                totalPlayerTwoScore+=roundScore;
+                playerTwoScore.setText("Score: "+ totalPlayerTwoScore);
+                JOptionPane.showMessageDialog(null,"You got over 21, you lost the points from this round.");
+                JOptionPane.showMessageDialog(null, "Player 1 - Go.")
+                roundScore=0;
+                playerTurn++;
+              }
+            }
+            if((totalPlayerOneScore+roundScore)>= 100 && playerTurn%2==0)
+            {
+              window.setVisible(false);
+              JOptionPane.showMessageDialog(null, "Player 1 Wins.");
+            }
+            if((totalPlayerTwoScore+roundScore)>= 100 && playerTurn%2==0)
+            {
+              window.setVisible(false);
+              JOptionPane.showMessageDialog(null, "Player 2 Wins.");
+            }
+            else
+            {
+              if(playerTurn%2==0)
+              {
+                playerOneScore.setText("Score: "+(totalPlayerOneScore+roundScore));
+              }
+              else if(playerTurn%2!=0)
+              {
+                playerTwoScore.setText("Score: "+(totalPlayerTwoScore+roundScore));
+              }
+            }
+          }
+        });
+        pass.addActionListener(new ActionListener())
+        {
+          @Override
+          pubic void actionPerformed(ActionEvent arg0)
+          {
+            if(playerTurn%2==0)
+            {
+              JOptionPane.showMessageDialog(null,"You passed your turn.");
+              JOptionPane.showMessageDialog(null, "Player 2 - Go.");
+              totalPlayerOneScore+=roundScore;
+              roundScore=0;
+              playerOneScore.setText("Score: "+totalPlayerOneScore);
+              playerTurn ++;
+            }
+            else if (playerTurn%2 !=0)
+            {
+              JOptionPane.showMessageDialog(null, "You passed your turn");
+              JOptionPane.showMessageDialog(null, "Player 1 - Go");
+              totalPlayerTwoScore += roundScore;
+              roundScore = 0;
+              playerTwoScore.setText("Score: "+totalPlayerTwoScore);
+              playerTurn++;
+            }
+          }
+        });
+
+        constraints.gridx = 0;
+        constraints.gridy = 0;
+        constraints.insets = new Insets(0,0,10,10);
+        panel.add(playerOne,constraints)
+
+        constraints.gridx = 1;
+        constraints.gridy = 0;
+        constraints.insets = new Insets(0,0,10,10);
+        panel.add(diceImages[0][0],constraints);
+
+        constraints.gridx = 2;
+        constraints.gridy = 0;
+        constraints.insets = new Insets(0,0,10,10);
+        panel.add(diceImages[0][1],constraints);
+
+        constraints.gridx = 3;
+        constraints.gridy = 0;
+        constraints.insets = new Insets(0,0,10,10);
+        panel.add(playerTwo,constraints);
+
+        constraints.gridx = 0;
+        constraints.gridy = 1;
+        constraints.insets = new Insets(0,0,10,10);
+        panel.add(playerOneScore,constraints);
+
+        constraints.gridx = 3;
+        constraints.gridy = 1;
+        constraints.insets = new Insets(0,0,10,10);
+        panel.add(playerTwoScore,constraints);
+
+        constraints.gridx = 1;
+        constraints.gridy = 1;
+        constraints.insets = new Insets(0,0,10,10);
+        panel.add(roll,constraints);
+
+        constraints.gridx = 2;
+        constraints.gridy = 1;
+        constraints.insets = new Insets(0,0,10,10);
+        panel.add(pass,constraints);
+
+        window.add(panel);
+        window.setVisible(true);
+      }
+    }
+  } 
+}
+```
+
+Dice Class:
+```
+import java.util.Random;
+import javax.swing.*;
+
+public class Dice
+{
+  public int randomInt
+  public ImageIcon dice1;
+  public ImageIcon dice2;
+  public ImageIcon dice3;
+  public ImageIcon dice4;
+  public ImageIcon dice5;
+  public ImageIcon dice6;
+  public ImageIcon diceList;
+  public ImageIcon imageIcon;
+
+  public Dice()
+  {
+    randomInt=0;
+    dice1 = new ImageIcon("DiceOneSide.PNG");
+    dice2 = new ImageIcon("DiceTwoSide.PNG");
+    dice3 = new ImageIcon("DiceThreeSide.PNG");
+    dice4 = new ImageIcon("DiceFourSide.PNG");
+    dice5 = new ImageIcon("DiceFiveSide.PNG");
+    dice6 = new ImageIcon("DiceSixSide.PNG");
+  }
+  public int changingDice()
+  {
+    Random rand = new Random();
+    randomInt = rand.nextInt(6);
+    return randomInt;
+  }
+  public ImageIcon getImage(int diceFace)
+  {
+    if(diceFace == 1)
+    {
+      imageIcon = dice1;
+    }
+    else if(diceFace == 2)
+    {
+      imageIcon = dice2;
+    }
+    else if(diceFace == 3)
+    {
+      imageIcon = dice3;
+    }
+    else if(diceFace == 4)
+    {
+      imageIcon = dice4;
+    }
+    else if(diceFace == 5)
+    {
+      imageIcon = dice5;
+    }
+    else if(diceFace == 6)
+    {
+      imageIcon = dice6;
+    }
+    return imageIcon
+  }
+}
+```
 
 Sample Output:
 ```//x```
@@ -587,6 +865,7 @@ Main:
 // Question 4 - ICS4U1 Unit 2 Assignment
 // Brandon Wong-Dearing
 // Teacher: Mr. Naccarto
+
 import java.util.Scanner;
 
 class Main
