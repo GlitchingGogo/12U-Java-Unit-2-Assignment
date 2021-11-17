@@ -252,149 +252,304 @@ class Main
 
     JFrame depositWindow = new JFrame("Bank");
     depositWindow.setSize(640,480);
-    
-    // Variable Init
-    String userSelection;
-    int transactionCount = 0;
+    despositWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    JPanel depositPanel = new JPanel(new GridBagLayout());
+    GridBagConstraints depositConstraints = new GridBagConstraints();
 
-    // While loop until user quits
-    while(true)
+    JButton depositButton = new JButton("Deposit");
+    JTextField depositAmount = new JTextField("Enter the amount you want to deposit: ")
+    depositPanel.add(depositAmount);
+
+    JFrame withdrawlWindow = new JFrame("Bank");
+    withdrawlWindow.setSize(640,480);
+
+    JPanel withdrawlPanel = new JPanel(new GridBagLayout());
+    GridBagConstraints = new GridBagConstraints();
+    JButton withdrawlButton = new JButton("Withdraw");
+    withdrawlPanel.add(withdrawlButton);
+    JTextField withdrawlAmount = new JTextField("Enter the amount you want to withdraw: ");
+    withdrawlPanel.add(withdrawlAmount);
+    submit.addActionListener(new ActionListener())
     {
-      Scanner in = new Scanner(System.in);
-      double userAmount;
-      String format userAmount;
-      System.out.print("Please enter deposit, withdraw or exit: ")
-      // Gather user input
-      userSelection = in.nextLine();
-      //Check for deposit
-      if("deposit".equals(userChoice))
+      @Override
+      public void actionPerformed(ActionEvent arg0)
       {
-        System.out.print("Enter the amount you wish to deposit: ")
-        // While loop until valid input is gathered
-        while(true)
+        String userUsername = username.getText();
+        String userPassword = password.getText();
+        if(userUsername.equals)userAccount.userName())&&(userPassword.equals(userAccount.passWord()))
         {
-          //Get user $
-          String userInput = in.nextLine();
-          try
+          if(window.isVisible())
           {
-            // Convert to double
-            userAmount = Double.parseDouble(userInput);
-            // Ensure positive
-            if(userAmount<0)
-            {
-              System.out.println("Please enter a valid, positive number.")
-              System.out.print("Enter the amount you wish to withdraw: ");
-            }
-            else
-            {
-              break;
-            }
+            window.setVisible(false);
           }
-          catch(Exception e)
+          JOptionPane.showMessageDialog(null, "Logged in successfully");
+          if(!optionWindow.isVisible())
           {
-            System.out.print("Please enter a proper number: ");
-
+            optionWindow.setVisible(true);
           }
-          // Format user amount to 2 decimal places
-          formatUserAmount = String.format("%.2f", userAmount);
-          // Convert to Double
-          userAmount = Double.parseDouble(formatUserAmount);
-          // Call method to deposit
-          userAccount.deposit(userAmount);
-          System.out.println();
-          // If useramount != 0, increase transaction counter
-          if(userAmount != 0)
-          {
-            transactionCount ++;
-          }
-          //If counter >= 3, interest charge is taken
-          if(transactionCount>=3)
-          {
-            userAccount.addInterest();
-            System.out.println("An interest charge of $25 has been subtracted from your account\n");
-            transactionCount = 0;
-          }
-          // Format total to 2 decimal places, print total savings
-          String totalSavings = String.format("%.2f", userAccount.getTotalSavings());
-          System.out.print("Your account has a total savings of $" + totalSavings+"\n\n");
-        }
-        // Check to see if user wants to withdraw
         else
-        if("withdraw".equals(userSelection))
         {
-          System.out.print("Enter the amount you want to withdraw: ");
-          // while loop to ensure proper $ amount
-          while(true)
+          JOptionPane.showMessageDialog(null, "You didn't enter username or password corretly");
+        }
+        }
+      }
+    });
+
+    deposit.addActionListener(newActionListener())
+    {
+      @Override
+      public void
+      actionPerformed(ActionEvent arg0)
+      {
+        if(optionWindow.isVisible())
+        {
+          optionWindow.setVisible(false);
+        }
+        JOptionPane.showMessageDialog(null, "You chose deposit");
+        if(!depositWindow.isVisible())
+        {
+          depositWindow.setVisible(true);
+        }
+      }
+    });
+
+    depositButton.addActionListener(new ActionListener())
+    {
+      @Override
+      public void actionPerformed(ActionEvent arg0)
+      {
+        try
+        {
+          String userStringInput = depositAmount.getText();
+          double.parseDouble(userStringInput);
+          if(userInputMoney>=0)
           {
-            // get $ input
-            String userAmount = in.nextLine();
-            // check to ensure proper format
-            try
-            {
-              // convert to double
-              userAmount = Double.parseDouble(userAmount)
-              // check for positive
-              if(userAmount<0)
-              {
-                System.out.println("Please enter a positive amount.");
-                System.out.print("Enter the amount you want to withdraw: ")
-              }
-              // Check user has enough $
-              else if(userAmount<=userAccount.getTotalSavings())
-              {
-                break;
-              }
-              // Allow user to quit without withdrawing
-              if(userAccount.getTotalSavings()< 0 && userAmount==0)
-              {
-                break;
-              }
-              else
-              {
-                System.out.println("You do not have enough savings to withdraw"+userAmount);
-                System.out.print("Enter the amount you want to withdraw: ");
-              }
-            }
-            catch(Exception e)
-            {
-              System.out.print("Please enter a proper number: ");
-            }
-            // Change to 2 dec places
-            formatUserAmount = String.format("&.2f", userAmount);
-            // Conv to dbl
-            userAmount = Double.parseDouble(formatUserAmount);
-            // Call method from class to withdraw
-            userAccount.withdraw(userAmount);
-            System.out.println();
-            if(userAmount != 0)
+            userStringInput=String.format("%.2f", userInputMoney);
+            userInputMoney=Double.parseDouble(userStringInput);
+            userAccount.deposit(userInputMoney);
+            if(userInputMoney!=0)
             {
               transactionCount ++;
             }
             if(transactionCount>=3)
             {
               userAccount.addInterest();
-              System.out.println("An interest charge of $25 has been subtracted from your account\n");
-              transactionCount = 0;
+              JOptionPane.showMessageDialog(null, "An interest charge of $25 has been subtracted from your account");
+              transactionCount=0;
             }
-            String totalSavings = String.format("%.2f", userAccount.getTotalSavings());
-            System.out.print("Your account has a total savings of $" + totalSavings+"\n\n");
+            String totalSavings=String.format("%.2f",userAccount.getTotalSavings());
+            JOptionPane.showMessageDialog(null,"You deposited $" + userStringInput + ", your total savings is now $"+totalSavings);
+            if(depositWindow.isVisible())
+            {
+              depositWindow.setVisible(false);
+            }
+            if(!optionWindow.isVisible())
+            {
+              optionWindow.setVisible(true);
+            }
+            depositAmount.setText("Enter the amount you want to deposit:");
           }
-          // Check to see if user wants to stop
-          elseif("stop".equals(userSelection))
+          else
           {
-            break;
+            JOptionPane.showMessageDialog(null, "Please enter an amount greater than 0.");
           }
         }
-        // Display total savings again
+        catch(Exception e)
+        {
+          JOptionPane.showMessageDialog(null, "Please enter a valid amount of money.");
+        }
       }
-      System.out.println("\n You have a total savings of $"+userAccount.getTotalSavings());
-    }
+    });
+
+    withdraw.addActionListener(new ActionListener())
+    {
+      @Override
+      public void actionPerformed(ActionEvent arg0)
+      {
+        if(optionWindow.isVisible())
+        {
+          optionWindow.setVisible(false);
+        }
+        JOptionPane.showMessageDialog(null,"You chose withdraw");
+        if(!withdrawlWindow.isVisible())
+        {
+          withdrawlWindow.setVisible(true);
+        }
+      }
+    });
+
+    withdrawlButton.addActionListener(new ActionListener())
+    {
+      @Override
+      public void actionPerformed(ActionEvent arg0)
+      {
+        try
+        {
+          String userStringInput = withdrawlAmount.getText();
+          double userInputMoney = Double.parseDouble(userInputString);
+          if(userInputMoney>userAccount.getTotalSavings()&&userInputMoney!=0)
+          {
+            JOptionPane.showMessageDialog(null,"You do not have enough money in savings");
+          }
+          else if(userInputMoney>=0)
+          {
+            userInputString=String.format("%.2f", userInputMoney);
+            userInputMoney = Double.parseDouble(userInputString);
+            userAccount.withdraw(userInputMoney);
+            if(userInputMoney!=0)
+            {
+              transactionCount ++;
+            }
+            if(transactionCount>=3)
+            {
+              userAccount.addInterest();
+              JOptionPane.showMessageDialog(null,"An interest charge of $25 has been subtracted.");
+              transactionCount=0;
+            }
+            String totalSavings = String.format("%.2f", userAccount.getTotalSavings());
+            if(withdrawlWindow.isVisible())
+            {
+              withdrawlWindow.setVisible(false);
+            }
+            if(!optionWindow.isVisible())
+            {
+              optionWindow.setVisible(true);
+            }
+            withdrawlAmount.setText("Enter the amount of money you want to withdraw;:");
+          }
+          else
+          {
+            JOptionPane.showMessageDialog(null, "Please enter an amount greater than 0")
+          }
+        }
+        catch(Exception e)
+        {
+          JOptionPane.showMessageDialog(null,"Please enter a proper monetary amount.");
+        }
+      }
+    });
+    loginConstraints.gridx = 1;
+    loginConstraints.gridy = 0;
+    loginConstraints.insets = new Insets(0,0,10,10);
+    
+    loginPanel.add(login,loginConstraints);
+    
+    loginConstraints.gridx = 1;
+    loginConstraints.gridy = 1;
+    loginConstraints.insets = new Insets(0,0,10,10);
+    
+    loginPanel.add(username,loginConstraints);
+
+    loginConstraints.gridx = 1;
+    loginConstraints.gridy = 2;
+    loginConstraints.insets = new Insets(0,0,10,10);
+
+    loginPanel.add(password,loginConstraints);
+
+    loginConstraints.gridx = 1;
+    loginConstraints.gridy = 3;
+    loginConstraints.insets = new Insets(0,0,10,10);
+
+    loginPanel.add(submit,loginConstraints);
+
+    optionConstraints.gridx = 0;
+    optionConstraints.gridy = 1;
+    optionConstraints.insets = new Insets(0,0,10,10);
+
+    optionPanel.add(deposit,optionConstraints);
+
+    optionConstraints.gridx = 1;
+    optionConstraints.gridy = 1;
+    optionConstraints.insets = new Insets(0,0,10,10);
+
+    optionPanel.add(withdraw,optionConstraints);
+
+    depositConstraints.gridx = 1;
+    depositConstraints.gridy = 0;
+    despositConstraints.insets = new Insets(0,0,10,10);
+
+    depositPanel.add(despositButton,depositConstraints);
+
+    depositConstraints.gridx = 1;
+    depositConstraints.gridy = 1;
+    despositConstraints.insets = new Insets(0,0,10,10);
+
+    depositPanel.add(Amount,depositConstraints);
+
+    withdrawlConstraints.gridx = 1;
+    withdrawlConstraints.gridy = 0;
+    withdrawlConstraints.insets = new Insets(0,0,10,10);
+
+    withdrawlPanel.add(withdrawlButton,withdrawlConstraints);
+
+    withdrawlConstraints.gridx = 1;
+    withdrawlConstraints.gridy = 1;
+    withdrawlConstraints.insets = new Insets(0,0,10,10);
+
+    withdrawlPanel.add(withdrawlAmount,withdrawlConstraints);
+
+    window.add(loginPanel);
+    window.setVisible(true);
+
+    optionWindow.add(optionPanel);
+    optionWindow.setVisible(false);
+
+    depositWindow.add(depositPanel);
+    depositWindow.setVisible(false);
+
+    withdrawlWindow.add(withdrawlPanel);
+    withdrawlWindow.setVisible(false);
   }
 }
 ```
 
-X Class:
-```//x```
+Bank Class:
+```
+public class Bank
+{
+  private double deposits;
+  private double withdrawls;
+  private double interestCharge;
+  private double totalSavings;
+  private String username;
+  private String password;
+
+  public Bank()
+  {
+    deposits = 0;
+    withdrawls = 0;
+    totalSavings = 0;
+    interestCharge = 25;
+    username = "Username";
+    password = "Password";
+  }
+  public String userName()
+  {
+    return username;
+  }
+  public String passWord()
+  {
+    return password;
+  }
+  public void deposit(double amount)
+  {
+    totalSavings += amount;
+  }
+  public void withdraw(double amount)
+  {
+    totalSavings -= amount;
+  }
+  public void addInterest()
+  {
+    totalSavings = totalSavings =- interestCharge;
+  }
+  public double getTotalSavings()
+  {
+    return totalSavings
+  }
+  
+}
+```
 
 Sample Output:
 ```//x```
